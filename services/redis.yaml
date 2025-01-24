@@ -1,0 +1,12 @@
+apiVersion: v1                     # Versão da API do Kubernetes
+kind: Service                    # Tipo do recurso - Service
+metadata:                        # Metadados do Service
+  name: redis                    # Nome do Service
+  labels:                        # Labels para identificação
+    app: redis                   # Label app com valor redis
+spec:                           # Especificação do Service
+  ports:                        # Configuração das portas
+    - port: 6379                # Porta exposta pelo Service
+      targetPort: 6379          # Porta do container que receberá o tráfego
+  selector:                     # Seletor para identificar os Pods
+    app: redis                  # Seleciona Pods com label app=redis

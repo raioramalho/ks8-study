@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service             # Nome do serviço
+spec:
+  selector:                       # Seleciona os Pods com essa label
+    name: nginx
+  ports:
+  - protocol: TCP                 # Protocolo usado
+    port: 8080                    # Porta exposta pelo serviço
+    targetPort: 80                # Porta mapeada no container
+  type: ClusterIP                 # Tipo do serviço (Ex.: ClusterIP, NodePort, LoadBalancer)

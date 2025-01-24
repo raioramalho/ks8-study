@@ -1,0 +1,19 @@
+apiVersion: apps/v1 # Versão da API do Kubernetes para Deployments
+kind: Deployment # Tipo do recurso - um Deployment gerencia ReplicaSets
+metadata: # Metadados do Deployment
+  name: meu-deployment # Nome do Deployment
+  labels: # Labels para identificação
+    app: meu-deployment
+spec: # Especificações do Deployment
+  replicas: 2 # Número de réplicas (pods) desejadas
+  selector: # Seletor para identificar os pods gerenciados
+    matchLabels:
+      app: meu-deployment
+  template: # Template para criação dos pods          
+    metadata: # Metadados dos pods
+      labels: # Labels dos pods
+        app: meu-deployment
+    spec: # Especificações dos pods
+      containers: # Lista de containers no pod
+        - name: my-app # Nome do container
+          image: nginx:latest # Imagem do container a ser utilizada
