@@ -1,6 +1,8 @@
-apiVersion: kind.x-k8s.io/v1alpha4
-kind: Cluster
 nodes:
-  - role: control-plane   # Primeiro nó - Control plane (master) que gerencia o cluster
-  - role: worker         # Segundo nó - Worker que executa as cargas de trabalho
-  - role: worker         # Terceiro nó - Worker adicional para distribuição de carga
+  # Define os nós do cluster Kubernetes
+  - address: control-plane # Nó de controle principal
+    role: [controlplane, etcd, worker] # Este nó atua como controlador, armazenamento etcd e também executa cargas de trabalho
+  - address: worker-1 # Primeiro nó worker
+    role: [worker] # Este nó apenas executa cargas de trabalho
+  - address: worker-2 # Segundo nó worker
+    role: [worker] # Este nó apenas executa cargas de trabalho
