@@ -1,8 +1,0 @@
-apiVersion: v1 # Versão da API do Kubernetes
-kind: Pod # Tipo do recurso que estamos criando (Pod)
-metadata: # Metadados do Pod
-  name: meu-pod # Nome do Pod
-spec: # Especificações do Pod
-  containers: # Lista de containers no Pod
-    - name: my-app # Nome do container
-      image: nginx:latest # Imagem do container

@@ -1,8 +1,0 @@
-nodes:
-  # Define os nós do cluster Kubernetes
-  - address: control-plane # Nó de controle principal
-    role: [controlplane, etcd, worker] # Este nó atua como controlador, armazenamento etcd e também executa cargas de trabalho
-  - address: worker-1 # Primeiro nó worker
-    role: [worker] # Este nó apenas executa cargas de trabalho
-  - address: worker-2 # Segundo nó worker
-    role: [worker] # Este nó apenas executa cargas de trabalho

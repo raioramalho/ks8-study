@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: loaddbalancer
+spec:
+  type: LoadBalancer
+  ports:
+  - protocol: TCP                 # Protocolo usado
+    port: 3000                   # Porta exposta pelo serviço
+  selector:
+      app: nestjs-deployment
