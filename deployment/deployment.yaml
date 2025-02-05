@@ -1,22 +1,29 @@
-apiVersion: apps/v1 # Versão da API do Kubernetes para Deployments
-kind: Deployment # Tipo do recurso - um Deployment gerencia ReplicaSets
-metadata: # Metadados do Deployment
-  name: nestjs-deployment # Nome do Deployment
-  labels: # Labels para identificação
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nestjs-deployment
+  labels:
     app: nestjs-deployment
-spec: # Especificações do Deployment
-  replicas: 1 # Número de réplicas (pods) desejadas
-  selector: # Seletor para identificar os pods gerenciados
+spec:
+  replicas: 1  # O HPA irá aumentar isso automaticamente
+  selector:
     matchLabels:
       app: nestjs-deployment
-  template: # Template para criação dos pods          
-    metadata: # Metadados dos pods
-      labels: # Labels dos pods
+  template:
+    metadata:
+      labels:
         app: nestjs-deployment
-    spec: # Especificações dos pods
-      containers: # Lista de containers no pod
-      - name: nestjs-app # Nome do container
-        image: nestjs-app:v1 # Imagem do container a ser utilizada
-        imagePullPolicy: Never # Política de pull da imagem
+    spec:
+      containers:
+      - name: nestjs-app
+        image: nestjs-app:v1
+        imagePullPolicy: Never
         ports:
-        - containerPort: 3000 # Porta do container        
+        - containerPort: 3000
+        resources:
+          requests:
+            cpu: "200m"  # 200 milicores (0.2 vCPU) - Necessário para o HPA funcionar
+            memory: "256Mi"  # Boa prática definir também a memória
+          limits:
+            cpu: "500m"  # 500 milicores (0.5 vCPU) - Define um limite seguro
+            memory: "512Mi"
