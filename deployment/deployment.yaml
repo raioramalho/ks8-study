@@ -5,7 +5,7 @@ metadata: # Metadados do Deployment
   labels: # Labels para identificação
     app: nestjs-deployment
 spec: # Especificações do Deployment
-  replicas: 2 # Número de réplicas (pods) desejadas
+  replicas: 1 # Número de réplicas (pods) desejadas
   selector: # Seletor para identificar os pods gerenciados
     matchLabels:
       app: nestjs-deployment
@@ -16,6 +16,7 @@ spec: # Especificações do Deployment
     spec: # Especificações dos pods
       containers: # Lista de containers no pod
       - name: nestjs-app # Nome do container
-        image: amar141989/nestjs:1.0.1 # Imagem do container a ser utilizada
+        image: nestjs-app:v1 # Imagem do container a ser utilizada
+        imagePullPolicy: Never # Política de pull da imagem
         ports:
         - containerPort: 3000 # Porta do container        

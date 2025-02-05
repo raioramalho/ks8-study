@@ -1,0 +1,24 @@
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build NestJS
+        run: npm run build
+
+      - name: Build Docker Image
+        run: docker build -t nestjs-app:v1 .
+
+      - name: Load Docker Image into k8s
+        run: kind load docker-image nestjs-app:v1 --name k8s-cluster
+
+      - name: Deploy to k8s
+        run: kubectl apply -f ./k8s/deployment.yaml
