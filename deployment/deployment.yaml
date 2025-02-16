@@ -2,10 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nestjs-deployment
+  namespace: default
   labels:
     app: nestjs-deployment
 spec:
-  replicas: 1  
+  replicas: 1
   selector:
     matchLabels:
       app: nestjs-deployment
@@ -13,17 +14,17 @@ spec:
     metadata:
       labels:
         app: nestjs-deployment
-    spec:
-    containers:
-      - name: nestjs-app
-        image: 10.2.1.125:30676/nestjs-app:v1
-        imagePullPolicy: Always  # Forçar pull sempre para garantir atualização
-        ports:
-        - containerPort: 3000
-        resources:
-          requests:
-            cpu: "500m"             
-            memory: "300Mi"
-          limits:
-            cpu: "500m"
-            memory: "512Mi"
+    spec:  # ESTE SPEC ESTÁ FALTANDO NO SEU ARQUIVO!
+      containers:
+        - name: nestjs-app
+          image: 10.2.1.125:30676/nestjs-app:v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+            requests:
+              cpu: "500m"
+              memory: "300Mi"

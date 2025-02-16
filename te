@@ -1,0 +1,4 @@
+ apt update
+ apt install kubelet kubeadm kubectl -y
+ apt-mark hold kubelet kubeadm kubectl
+ systemctl enable --now kubelet
