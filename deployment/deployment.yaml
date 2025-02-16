@@ -5,7 +5,7 @@ metadata:
   labels:
     app: nestjs-deployment
 spec:
-  replicas: 1  # O HPA irá aumentar isso automaticamente
+  replicas: 1  
   selector:
     matchLabels:
       app: nestjs-deployment
@@ -22,8 +22,8 @@ spec:
         - containerPort: 3000
         resources:
           requests:
-            cpu: "200m"  # 200 milicores (0.2 vCPU) - Necessário para o HPA funcionar
-            memory: "256Mi"  # Boa prática definir também a memória
+            cpu: "500m"  # 500 milicores (0.5 vCPU) - Necessário para o HPA funcionar            
+            memory: "300Mi"  # Boa prática definir também a memória
           limits:
             cpu: "500m"  # 500 milicores (0.5 vCPU) - Define um limite seguro
-            memory: "512Mi"
+            memory: "512Mi" # Boa prática definir também a memória

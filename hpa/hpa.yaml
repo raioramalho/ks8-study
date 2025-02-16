@@ -16,4 +16,4 @@ spec:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 15  # Ajuste a média desejada
+        averageUtilization: 20  # Ajuste a média desejada
