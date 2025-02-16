@@ -1,5 +1,5 @@
 config:
-  target: 'http://10.2.1.121:32000'
+  target: 'http://10.2.1.125:32000'
   phases:
     - duration: 100
       arrivalRate: 200
