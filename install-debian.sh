@@ -7,8 +7,8 @@ NODE_HOSTNAME=$(hostname)
 ANSIBLE_USER="$USER"
 KUBESPRAY_VERSION="release-2.24"
 
-# Atualiza e instala dependências
-sudo apt update && sudo apt install -y python3-pip python3-venv git sshpass nmap curl
+# Atualiza e instala dependências, incluindo VMware Tools
+sudo apt update && sudo apt install -y python3-pip python3-venv git sshpass nmap curl open-vm-tools
 
 # Configura SSH para evitar problemas de autenticação
 SSH_KEY="$HOME/.ssh/id_rsa"
