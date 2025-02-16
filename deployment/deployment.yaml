@@ -16,14 +16,14 @@ spec:
     spec:
       containers:
       - name: nestjs-app
-        image: nestjs-app:v1
-        imagePullPolicy: Never
+        image: 10.2.1.125:30676/nestjs-app:v1  # 🔥 Caminho correto do registry
+        imagePullPolicy: Never  # Use IfNotPresent se quiser permitir updates
         ports:
         - containerPort: 3000
         resources:
           requests:
-            cpu: "500m"  # 500 milicores (0.5 vCPU) - Necessário para o HPA funcionar            
-            memory: "300Mi"  # Boa prática definir também a memória
+            cpu: "500m"             
+            memory: "300Mi"
           limits:
-            cpu: "500m"  # 500 milicores (0.5 vCPU) - Define um limite seguro
-            memory: "512Mi" # Boa prática definir também a memória
+            cpu: "500m"
+            memory: "512Mi"
