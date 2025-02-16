@@ -1,0 +1,9 @@
+========== Artillery Test Summary ==========
+Timestamp: 1739692589
+Total Requests: 0
+✅ HTTP 2xx: 0
+⚠️ HTTP 4xx: 0
+❌ HTTP 5xx: 0
+Total Errors: 0 (Error Rate: 0,00%)
+📊 Latency (ms) - Mean: 0 | Min: 0 | Max: 0
+============================================

@@ -9,11 +9,11 @@ spec:
     kind: Deployment
     name: nestjs-deployment
   minReplicas: 1
-  maxReplicas: 20
+  maxReplicas: 30
   metrics:
   - type: Resource
     resource:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 30  # Ajuste a média desejada
+        averageUtilization: 50  # Ajuste a média desejada

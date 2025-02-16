@@ -1,8 +1,8 @@
 config:
   target: 'http://10.2.1.125:32000'
   phases:
-    - duration: 100
-      arrivalRate: 200
+    - duration: 10
+      arrivalRate: 10
 scenarios:
   - flow:
     - get:
