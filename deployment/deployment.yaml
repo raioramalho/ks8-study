@@ -14,10 +14,10 @@ spec:
       labels:
         app: nestjs-deployment
     spec:
-      containers:
+    containers:
       - name: nestjs-app
-        image: 10.2.1.125:30676/nestjs-app:v1  # 🔥 Caminho correto do registry
-        imagePullPolicy: Never  # Use IfNotPresent se quiser permitir updates
+        image: 10.2.1.125:30676/nestjs-app:v1
+        imagePullPolicy: Always  # Forçar pull sempre para garantir atualização
         ports:
         - containerPort: 3000
         resources:
