@@ -48,6 +48,8 @@ Certifique-se de ter os seguintes itens instalados:
 O fluxo de trabalho no GitHub Actions é acionado em pull requests para os branches `main` e `master`. Ele executa os seguintes passos:
 
 ```yaml
+name: Deploy NestJS
+
 on:
   pull_request:
     branches:
@@ -55,24 +57,37 @@ on:
       - master
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-22.04
     steps:
-      - name: Install Dependencies
+      - name: Clonar Repositório
+        uses: actions/checkout@v4
+
+      - name: Instalar Dependências
         run: npm install
 
-      - name: Build NestJS
+      - name: Construir Aplicação NestJS
         run: npm run build
 
-      - name: Build Docker Image
-        run: docker build -t nestjs-app:v1 .
+  docker:
+    needs: build
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Construir Imagem Docker
+        run: docker build -t localhost:30676/nestjs-app:v1 .
 
-      - name: Load Docker Image into k8s
-        run: kind load docker-image nestjs-app:v1 --name k8s-cluster
+      - name: Enviar Imagem Docker
+        run: docker push localhost:30676/nestjs-app:v1
 
-      - name: Deploy to k8s
-        run: kubectl apply -f ./k8s/deployment.yaml
-```
+  deploy:
+    needs: docker
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Atualizar Deployment
+        run: kubectl set image deployment/nestjs-deployment nestjs-app=localhost:30676/nestjs-app:v1
+
+      - name: Verificar Status do Rollout
+        run: kubectl rollout status deployment/nestjs-deployment```
 
 ## Verificando a Implantação
 
