@@ -11,6 +11,7 @@ export class AppService {
       const data = await request.json();
       count = count + 1;
       return {
+        cep: params.cep,
         count,
         data,
       };
