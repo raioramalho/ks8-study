@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Logger, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -7,6 +7,7 @@ export class AppController {
 
   @Get()
   getHello(@Query() params: {cep: string}) {
+    Logger.debug(`Buscando cep: ${params.cep}`);
     return this.appService.getHello(params);
   }
 }
