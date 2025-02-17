@@ -1,19 +1,19 @@
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
+apiVersion: autoscaling/v2  # Versão da API de autoscaling do Kubernetes
+kind: HorizontalPodAutoscaler    # Tipo do recurso - HPA para escalar pods horizontalmente
 metadata:
-  name: nestjs-hpa
-  namespace: default
+  name: nestjs-hpa              # Nome do HPA
+  namespace: default            # Namespace onde o HPA será criado
 spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: nestjs-deployment
-  minReplicas: 1
-  maxReplicas: 30
-  metrics:
-  - type: Resource
+  scaleTargetRef:               # Referência ao recurso que será escalado
+    apiVersion: apps/v1         # Versão da API do recurso alvo
+    kind: Deployment           # Tipo do recurso alvo (Deployment)
+    name: nestjs-deployment    # Nome do Deployment que será escalado
+  minReplicas: 1              # Número mínimo de réplicas
+  maxReplicas: 30             # Número máximo de réplicas
+  metrics:                     # Métricas que serão monitoradas para escalar
+  - type: Resource            # Tipo de métrica (recurso do sistema)
     resource:
-      name: cpu
+      name: cpu               # Nome do recurso (CPU neste caso)
       target:
-        type: Utilization
-        averageUtilization: 50  # Ajuste a média desejada
+        type: Utilization    # Tipo de target (utilização média)
+        averageUtilization: 50  # Escala quando a utilização média de CPU atingir 50%

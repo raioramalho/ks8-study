@@ -4,6 +4,8 @@ let count = 0;
 
 @Injectable()
 export class AppService {
+  private readonly ENV = process.env.ENV;  
+  private readonly DATABASE_URL = process.env.DATABASE_URL;
   async getHello(params: {cep: string}) {
     
     try {
@@ -11,6 +13,8 @@ export class AppService {
       const data = await request.json();
       count = count + 1;
       return {
+        env: this.ENV,
+        database: this.DATABASE_URL,
         cep: params.cep,
         count,
         data,

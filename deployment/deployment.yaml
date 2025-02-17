@@ -1,30 +1,35 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nestjs-deployment
-  namespace: default
-  labels:
+apiVersion: apps/v1 # Versão da API do Kubernetes
+kind: Deployment # Tipo do recurso Kubernetes - Deployment gerencia ReplicaSets
+metadata: # Metadados do Deployment
+  name: nestjs-deployment # Nome do deployment
+  namespace: default # Namespace onde o deployment será criado
+  labels: # Labels para identificar o deployment
     app: nestjs-deployment
-spec:
-  replicas: 2
-  selector:
+spec: # Especificações do deployment
+  replicas: 2 # Número de réplicas (pods) que serão mantidas
+  selector: # Seletor para identificar quais pods pertencem a este deployment
     matchLabels:
       app: nestjs-deployment
-  template:
-    metadata:
-      labels:
+  template: # Template para os pods que serão criados
+    metadata: # Metadados dos pods
+      labels: # Labels dos pods
         app: nestjs-deployment
-    spec:  # ESTE SPEC ESTÁ FALTANDO NO SEU ARQUIVO!
-      containers:
-        - name: nestjs-app
-          image: 10.2.1.125:30676/nestjs-app:v1
-          imagePullPolicy: Always
-          ports:
-            - containerPort: 3000
-          resources:
-            limits:
-              cpu: "500m"
-              memory: "512Mi"
-            requests:
-              cpu: "500m"
-              memory: "300Mi"
+    spec: # Especificações dos pods
+      containers: # Lista de containers no pod
+        - name: nestjs-app # Nome do container
+          image: 10.2.1.125:30676/nestjs-app:v1 # Imagem do container e sua versão
+          imagePullPolicy: Always # Política de pull da imagem - sempre baixar a mais recente
+          ports: # Portas expostas pelo container
+            - containerPort: 3000 # Porta da aplicação NestJS
+          resources: # Recursos computacionais do container
+            limits: # Limites máximos de recursos
+              cpu: "500m" # Limite de CPU (500 milicores = 0.5 CPU)
+              memory: "512Mi" # Limite de memória (512 Megabytes)
+            requests: # Recursos mínimos garantidos
+              cpu: "500m" # CPU solicitada
+              memory: "300Mi" # Memória solicitada
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: DATABASE_URL
+              value: "postgresql://user:password@db-host:5432/database"

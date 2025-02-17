@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nestjs-service
+  name: nestjs-service  # Nome do serviço que será usado para referenciá-lo
 spec:
-  type: NodePort
+  type: NodePort  # Tipo do serviço que expõe a aplicação externamente através de uma porta no node
   selector:
-    app: nestjs-deployment
+    app: nestjs-deployment  # Seleciona os pods com a label app=nestjs-deployment
   ports:
-    - protocol: TCP
-      port: 3000
-      targetPort: 3000
-      nodePort: 32000  # Porta no node (escolha um valor entre 30000-32767)
+    - protocol: TCP  # Protocolo de comunicação
+      port: 3000     # Porta exposta internamente no cluster
+      targetPort: 3000  # Porta do container que receberá o tráfego
+      nodePort: 32000   # Porta externa acessível fora do cluster (deve estar entre 30000-32767)
