@@ -10,7 +10,7 @@ export let options = {
 };
 
 export default function () {
-  let res = http.get('http://10.2.1.125:32000', { timeout: '560s' });
+  let res = http.get('http://10.2.1.125:32000?cep=20521100', { timeout: '160s' });
 
   check(res, {
     'status é 200': (r) => r.status === 200,
