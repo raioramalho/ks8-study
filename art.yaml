@@ -1,9 +1,21 @@
 config:
-  target: 'http://10.2.1.125:32000'
+  target: "http://10.2.1.125:32000"
   phases:
-    - duration: 10
-      arrivalRate: 10
+    - duration: 120    # Duração total do teste (60 segundos)
+      arrivalRate: 500 # 100 novos usuários por segundo
+  defaults:
+    headers:
+      User-Agent: "Artillery Load Test" # Define um User-Agent customizado
+    http:
+      timeout: 10  # Define um timeout de 10 segundos para as requisições
+
 scenarios:
   - flow:
-    - get:
-        url: "/"
+      - get:
+          url: "/"
+          capture:
+            - json: "$.status"
+              as: "response_status"
+          expect:
+            - statusCode: 200 # Garante que todas as respostas sejam 200
+            - contentType: "application/json" # Valida o tipo de resposta (se aplicável)

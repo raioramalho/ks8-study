@@ -1,12 +1,20 @@
 import http from 'k6/http';
-import { sleep } from 'k6';
+import { check, sleep } from 'k6';
 
-export const options = {
-  vus: 200, // Número de usuários virtuais
-  duration: '60s', // Tempo do teste
+export let options = {
+  stages: [
+    { duration: '30s', target: 20 },  // 10 usuários em 30s
+    { duration: '1m', target: 50 },   // 50 usuários por 1 min
+    { duration: '30s', target: 0 },   // Redução gradual para 0
+  ],
 };
 
 export default function () {
-  http.get('http://10.2.1.125:32000/'); // URL alvo do teste
+  let res = http.get('http://10.2.1.125:32000', { timeout: '560s' });
+
+  check(res, {
+    'status é 200': (r) => r.status === 200,
+    'tempo de resposta < 500ms': (r) => r.timings.duration < 500,
+  });
   sleep(1);
 }
