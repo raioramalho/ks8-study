@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: local-bucket
+spec:
+  serviceName: local-bucket
+  replicas: 1
+  selector:
+    matchLabels:
+      app: local-bucket
+  template:
+    metadata:
+      labels:
+        app: local-bucket
+    spec:
+      containers:
+        - name: minio
+          image: quay.io/minio/minio
+          args:
+            - server
+            - /data
+            - --console-address
+            - ":9001"
+          ports:
+            - containerPort: 9000
+            - containerPort: 9001
+          env:
+            - name: MINIO_ROOT_USER
+              value: "local-bucket"
+            - name: MINIO_ROOT_PASSWORD
+              value: "ramalho@minio@password"
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          hostPath:
+            path: /mnt/local-bucket
+            type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: local-bucket
+spec:
+  ports:
+    - name: api
+      port: 9000
+      targetPort: 9000
+    - name: console
+      port: 9001
+      targetPort: 9001
+  selector:
+    app: local-bucket
